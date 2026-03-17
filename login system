@@ -1,0 +1,46 @@
+id="x92kdl"
+import os
+
+def register():
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+
+    with open("users.txt", "a") as f:
+        f.write(username + "," + password + "\n")
+
+    print("Registration successful!")
+
+def login():
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+
+    if not os.path.exists("users.txt"):
+        print("No users found. Please register first.")
+        return
+
+    with open("users.txt", "r") as f:
+        users = f.readlines()
+
+    for user in users:
+        u, p = user.strip().split(",")
+        if u == username and p == password:
+            print("Login successful!")
+            return
+
+    print("Invalid credentials!")
+
+def main():
+    while True:
+        print("\n1. Register\n2. Login\n3. Exit")
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            register()
+        elif choice == "2":
+            login()
+        elif choice == "3":
+            break
+        else:
+            print("Invalid choice")
+
+main()
